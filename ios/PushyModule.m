@@ -76,35 +76,23 @@ RCT_EXPORT_METHOD(setCriticalAlertOption)
 }
 
 RCT_EXPORT_METHOD(register:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
-{
-    // Keep track of promise resolve/reject invocation
-    __block BOOL resolved = NO;
-    
+{   
     // Register the device for push notifications
     [[self getPushyInstance] register:^(NSError *error, NSString* deviceToken) {
         // Handle registration errors
         if (error != nil) {
-            // Avoid resolving if did so in the past
-            if (!resolved){
-                resolved = YES;
                 
-                // Reject promise with error
-                reject(@"Error", [NSString stringWithFormat:@"Registration failed: %@", error], error);
-            }
-            
+            // Reject promise with error
+            reject(@"Error", [NSString stringWithFormat:@"Registration failed: %@", error], error);
+
             return;
         }
         
         // Print device token to console
         NSLog(@"Pushy device token: %@", deviceToken);
-        
-        // Avoid resolving if did so in the past
-        if (!resolved){
-            resolved = YES;
             
-            // Resolve promise with device token
-            resolve(deviceToken);
-        }
+        // Resolve promise with device token
+        resolve(deviceToken);
         
         return;
     }];
