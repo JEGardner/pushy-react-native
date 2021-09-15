@@ -83,7 +83,7 @@ RCT_EXPORT_METHOD(register:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseR
         if (error != nil) {
                 
             // Reject promise with error
-            reject(@"Error", [NSString stringWithFormat:@"Registration failed: %@", error], error);
+            reject(@"Error", [NSString stringWithFormat:@"Pushy registration failed: %@", error], error);
 
             return;
         }
