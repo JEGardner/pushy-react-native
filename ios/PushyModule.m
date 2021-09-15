@@ -106,7 +106,7 @@ RCT_EXPORT_METHOD(register:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseR
             resolve(deviceToken);
         }
         
-        return
+        return;
     }];
 }
 
